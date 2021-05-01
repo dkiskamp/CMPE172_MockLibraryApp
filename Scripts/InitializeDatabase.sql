@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS `borrowed_book`;
 DROP TABLE IF EXISTS `author_of_book`;
 DROP TABLE IF EXISTS `author`;
 DROP TABLE IF EXISTS `book`;
-DROP TABLE IF EXISTS `privileged_account`;
+DROP TABLE IF EXISTS `admin_account`;
 DROP TABLE IF EXISTS `account`;
 
 CREATE TABLE `account` (
@@ -16,14 +16,15 @@ CREATE TABLE `account` (
   created_at timestamp NOT NULL
 );
 
-CREATE TABLE `privileged_account` (
+CREATE TABLE `admin_account` (
   admin_id int PRIMARY KEY AUTO_INCREMENT,
   user_id int,
-  FOREIGN KEY (user_id) REFERENCES account(user_id)
+  FOREIGN KEY (user_id) REFERENCES `account` (user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `book` (
-  isbn int PRIMARY KEY,
+  isbn varchar(255) PRIMARY KEY,
   title varchar(255) NOT NULL,
   publisher varchar(255),
   publication_year int,
@@ -33,28 +34,34 @@ CREATE TABLE `book` (
 CREATE TABLE `author` (
   author_id int PRIMARY KEY AUTO_INCREMENT,
   first_name varchar(255),
-  last_name varchar(255)
+  last_name varchar(255),
+  CONSTRAINT uc_author UNIQUE (first_name, last_name)
 );
 
 CREATE TABLE `author_of_book` (
-  isbn int,
-  FOREIGN KEY (isbn) REFERENCES book(isbn),
+  isbn varchar(255),
+  FOREIGN KEY (isbn) REFERENCES `book` (isbn)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
   author_id int,
-  FOREIGN KEY (author_id) REFERENCES author(author_id),
-  priority int
+  FOREIGN KEY (author_id) REFERENCES `author` (author_id)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT uc_author_of_book UNIQUE (isbn, author_id)
 );
 
 CREATE TABLE `borrowed_book` (
-  isbn int,
-  FOREIGN KEY (isbn) REFERENCES book(isbn),
+  isbn varchar(255),
+  FOREIGN KEY (isbn) REFERENCES book(isbn)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
   user_id int,
-  FOREIGN KEY (user_id) REFERENCES account(user_id),
+  FOREIGN KEY (user_id) REFERENCES `account` (user_id)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
   borrow_date timestamp NOT NULL
 );
 
 CREATE TABLE `late_fee` (
   user_id int,
-  FOREIGN KEY (user_id) REFERENCES account(user_id),
-  fee decimal(5,2) NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES `account` (user_id)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  fee decimal(6,2) NOT NULL,
   start_date timestamp NOT NULL
 );
