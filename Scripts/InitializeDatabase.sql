@@ -55,7 +55,8 @@ CREATE TABLE `borrowed_book` (
   user_id int,
   FOREIGN KEY (user_id) REFERENCES `account` (user_id)
     ON DELETE RESTRICT ON UPDATE CASCADE,
-  borrow_date timestamp NOT NULL
+  borrow_date timestamp NOT NULL,
+  return_date timestamp
 );
 
 CREATE TABLE `late_fee` (
