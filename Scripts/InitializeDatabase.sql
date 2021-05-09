@@ -8,12 +8,12 @@ DROP TABLE IF EXISTS `account`;
 
 CREATE TABLE `account` (
   user_id int PRIMARY KEY AUTO_INCREMENT,
-  username varchar(255) NOT NULL,
+  username varchar(255) UNIQUE NOT NULL,
   password_hash varchar(255) NOT NULL,
   salt varchar(255) NOT NULL,
   first_name varchar(255) NOT NULL,
   last_name varchar(255) NOT NULL,
-  created_at timestamp NOT NULL
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `admin_account` (

@@ -1,6 +1,6 @@
-DELIMITER ^
+DELIMITER $$
 
-DROP PROCEDURE IF EXISTS insert_book_author^
+DROP PROCEDURE IF EXISTS insert_book_author$$
 CREATE PROCEDURE insert_book_author (
     $isbn varchar(255),
     $title varchar(255),
@@ -33,6 +33,24 @@ BEGIN
             FROM `author`
             WHERE first_name = $first_name
             AND last_name = $last_name;
-END^
+END$$
 
+DROP PROCEDURE IF EXISTS insert_account$$
+CREATE PROCEDURE insert_account (
+    $username varchar(255),
+    $password_hash varchar(255),
+    $salt varchar(255),
+    $first_name varchar(255),
+    $last_name varchar(255)
+)
+BEGIN
+    INSERT INTO `account` (username, password_hash, salt, first_name, last_name)
+        VALUES (
+            $username,
+            $password_hash,
+            $salt,
+            $first_name,
+            $last_name
+        );
+END$$
 DELIMITER ;
