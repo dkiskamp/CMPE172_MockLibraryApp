@@ -38,15 +38,17 @@ END$$
 DROP PROCEDURE IF EXISTS insert_account$$
 CREATE PROCEDURE insert_account (
     $username varchar(255),
+    $email varchar(255),
     $password_hash varchar(255),
     $salt varchar(255),
     $first_name varchar(255),
     $last_name varchar(255)
 )
 BEGIN
-    INSERT INTO `account` (username, password_hash, salt, first_name, last_name)
+    INSERT INTO `account` (username, email, password_hash, salt, first_name, last_name)
         VALUES (
             $username,
+            $email,
             $password_hash,
             $salt,
             $first_name,
