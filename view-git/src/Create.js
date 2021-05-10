@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Component } from 'react';
 import axios from 'axios';
 
-export class Register extends React.Component {
+class Create extends Component {
   constructor(props) {
     super(props);
 
@@ -71,3 +71,5 @@ export class Register extends React.Component {
     );
   }
 }
+
+export default Create;
