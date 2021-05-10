@@ -16,15 +16,24 @@ app.use(express.urlencoded({ extended: false }));
 let users = [];
 users.length = 0;
 
+const listOfBooks = [
+  {bookName: 'penis', bookISBN: 'abcdef', bookAuthor: 'jack'},{bookName: 'Sucks', bookISBN: 'abcd', bookAuthor:'tanmay'}
+]
+const bookResponse = {
+  books: listOfBooks
+}
 app.get('/library', (req, res) =>{
     console.log("library");
-    const book = {
-      bookName: 'penis',
-      bookTitle: 'penis returns',
-      bookAuthor: 'jack gisel'
-    }
-    res.send(JSON.stringify(book));
+    res.send(JSON.stringify(bookResponse));
 })
+
+app.post('/borrow', function(req, res){
+  console.log(req.body);
+  const bookdata = {
+    bookISBN: req.body.bookISBN
+  }
+  console.log(bookdata);
+});
 
 app.get('/user', (req, res) =>{
   console.log("user");
