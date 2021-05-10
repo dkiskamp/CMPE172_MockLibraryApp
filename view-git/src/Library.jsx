@@ -10,14 +10,28 @@ export default class Library extends React.Component {
         firstname: '',
         username: '',
         amountowed: '0',
-        bookName: '',
-        bookTitle: '',
-        bookAuthor: '',
+        bookISBN: '',
         books: []   
       };
       this.getUser();
       this.getBook();
     }  
+
+      handleSubmit = e => {
+      //e.preventDefault();
+      console.log("send");
+        this.setState({
+          bookISBN : e
+        })
+      //send objects or arrays not values
+
+      axios
+        .post('http://localhost:3001/borrow', {bookISBN: e})
+        .then(() => console.log('sent data'))
+        .catch(err => {
+          console.error(err);
+        });
+    };
 
       getUser() {
         axios.get('http://localhost:3001/user')
@@ -38,7 +52,7 @@ export default class Library extends React.Component {
               this.setState({
                 books: response.data.books,
                 bookName: response.data.books[0].bookName,
-                bookTitle: response.data.books[0].bookTitle,
+                bookISBN: response.data.books[0].bookISBN,
                 bookAuthor: response.data.books[0].bookAuthor
               })
               console.log(this.state.books);
@@ -73,24 +87,26 @@ export default class Library extends React.Component {
             <div className="form"><p>{this.state.username}</p></div>
 
             </div>
-            <div className="right-info">  
-              <div className="form"><p>{this.state.amount}</p></div>
-              <button name="books" id="books" className="btn">All Borrowed Books</button>
+            <div className="right-info"> 
+              <button name="books" id="books" className="btn">All Borrowed Books</button> 
+              <div className="form"><p>Amount Owed: {this.state.amountowed}</p></div>              
             </div>  
           </div>
           <div className="bottom-container">
             <div className="bottom-nav"><h2>List of Books</h2></div>
-          <div className="book-data">
+          
           {this.state.books?.map((book, index) => (
-          <p className="bookName">{book.bookName}</p>
-          <p className="username">{book.bookTitle}></p>
-          <p className="amount"></p>{book.bookAuthor}</p>
+          //<form onSubmit = {this.handleSubmit}>
+          <div className="book-data">
+            <div className="bookName">Name: &ensp; {book.bookName}</div>
+            <div name="bookisbn" className="bookisbn">ISBN: &ensp; {book.bookISBN}</div>
+            <div className="author">Author: &ensp; {book.bookAuthor}</div>
+            <button onClick={() => this.handleSubmit(book.bookISBN)} className="btn" name="borrow"> Borrow </button>
+          </div>
+          //</form>
           ))}
-            {/* <div className="bookName"><h2>{this.state.books[0]?.bookName}</h2></div>
-            <div className="username"><h3>{this.state.books[0]?.bookTitle}</h3></div>
-            <div className="amount"><h3></h3>{this.state.books[0]?.bookAuthor}</div> */}
-          </div>
-          </div>
+
+        </div>
         </div>
       );
     }
