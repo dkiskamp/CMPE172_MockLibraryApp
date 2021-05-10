@@ -16,6 +16,26 @@ app.use(express.urlencoded({ extended: false }));
 let users = [];
 users.length = 0;
 
+app.get('/library', (req, res) =>{
+    console.log("library");
+    const book = {
+      bookName: 'penis',
+      bookTitle: 'penis returns',
+      bookAuthor: 'jack gisel'
+    }
+    res.send(JSON.stringify(book));
+})
+
+app.get('/user', (req, res) =>{
+  console.log("user");
+  const user = {
+    firstname: 'tanmay',
+    username: 'tanmaysiwach',
+    amountowed: '10'
+  }
+  res.send(JSON.stringify(user));
+})
+
 app.post('/register', function(req, res) {
   console.log("register");
   const user = {
@@ -32,12 +52,13 @@ app.post('/register', function(req, res) {
 
 let logininfo = [];
 app.post('/login', function(req, res) {
-  console.log("register");
+  console.log("login");
   const user = {
     username: req.body.username,
     password: req.body.password
   };
   logininfo.push(user);
+  console.log(logininfo);
 });
 
 //test case.. Create.js associated to this
