@@ -21,7 +21,7 @@ export class Register extends React.Component {
   };
 
   handleSubmit = e => {
-    console.log("abc");
+    console.log("register");
     e.preventDefault();
 
     const {firstname, lastname, username, email, password} = this.state;
