@@ -37,8 +37,9 @@ export class Register extends React.Component {
     axios
       .post('http://localhost:3001/register', user)
       .then(res => {
-        console.log(res.data);
-        window.location.replace('/library');
+        console.log("DATA: "+res.data);
+        if(res.data == 'SUCCESS'){
+        window.location.replace('/library');}
       })
       .catch(err => {
         console.error(err);
@@ -54,15 +55,15 @@ export class Register extends React.Component {
         <div className="form">
             <div className="form-group">
             <label htmlFor="firstname">FirstName</label>
-            <input type="text" name="firstname" placeholder="firstname" onChange={this.handleInputChange} />
+            <input type="text" name="firstname" placeholder="firstname" onChange={this.handleInputChange} required />
             <label htmlFor="lastanme">LastName</label>
-            <input type="text" name="lastname" placeholder="lastname" onChange={this.handleInputChange} />
+            <input type="text" name="lastname" placeholder="lastname" onChange={this.handleInputChange} required />
             <label htmlFor="username">Username</label>
-            <input type="text" name="username" placeholder="username" onChange={this.handleInputChange} />
+            <input type="text" name="username" placeholder="username" onChange={this.handleInputChange} required />
             <label htmlFor="email">Email</label>
-            <input type="text" name="email" placeholder="email" onChange={this.handleInputChange} />
+            <input type="email" name="email" placeholder="email" onChange={this.handleInputChange} required />
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" placeholder="password" onChange={this.handleInputChange} />
+            <input type="password" name="password" placeholder="password" onChange={this.handleInputChange} required />
           </div>
         <button type="submit" className="btn">
           Register

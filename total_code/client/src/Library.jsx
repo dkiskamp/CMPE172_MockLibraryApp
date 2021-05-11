@@ -78,6 +78,10 @@ export default class Library extends React.Component {
     //     bookAuthor: res.body.bookAuthor
     //   });
     // }
+    gotobook(){
+      window.location.replace('/book');
+    }
+
     //create an array of all objects and then map it inside the render
     render() {
       return (
@@ -89,7 +93,7 @@ export default class Library extends React.Component {
 
             </div>
             <div className="right-info"> 
-              <button name="books" id="books" className="btn">All Borrowed Books</button> 
+              <button onClick= {() => this.gotobook()} name="books" id="books" className="btn">All Borrowed Books</button> 
               <div className="form"><p>Amount Owed: {this.state.amountowed}</p></div>              
             </div>  
           </div>

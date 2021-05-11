@@ -32,8 +32,9 @@ export class Login extends React.Component {
     axios
       .post('http://localhost:3001/login', user)
       .then(res => {
-        console.log(res.data);
-        window.location.replace('/library');
+        console.log("DATA: "+res.data);
+        if(res.data == 'SUCCESS'){
+        window.location.replace('/library');}
       })
       .catch(err => {
         console.error(err);
@@ -51,11 +52,11 @@ export class Login extends React.Component {
           <div className="form">
             <div className="form-group">
               <label htmlFor="username">Username</label>
-              <input type="text" name="username" placeholder="username" onChange={this.handleInputChange} />
+              <input type="text" name="username" placeholder="username" onChange={this.handleInputChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="password" onChange={this.handleInputChange} />
+              <input type="password" name="password" placeholder="password" onChange={this.handleInputChange} required />
             </div>
           </div>
         </div>
