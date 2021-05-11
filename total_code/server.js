@@ -45,7 +45,7 @@ let users = [];
 users.length = 0;
 
 const listOfBooks = [
-  {bookName: 'penis', bookISBN: 'abcdef', bookAuthor: 'jack'},{bookName: 'Sucks', bookISBN: 'abcd', bookAuthor:'tanmay'}
+  {bookName: 'Avatar', bookISBN: '123456789', bookAuthor: 'jack'},{bookName: 'Game of Thrones', bookISBN: '987654321', bookAuthor:'George'}
 ]
 const bookResponse = {
   books: listOfBooks
