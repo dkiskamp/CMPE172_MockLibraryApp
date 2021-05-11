@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import {Redirect} from 'react-router-dom';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ export class Login extends React.Component {
   };
 
   handleSubmit = e => {
+    //window.location.replace('/library');
     console.log("abc");
     e.preventDefault();
 
@@ -28,15 +30,17 @@ export class Login extends React.Component {
     console.log(user);
     
     axios
-      .post('/login', user)
-      .then((res) => {
-            window.location.replace('/library')
+      .post('http://localhost:3001/login', user)
+      .then(res => {
+        console.log(res.data);
+        window.location.replace('/library');
       })
       .catch(err => {
         console.error(err);
       });
   };
-
+  
+  
 
   render() {
     return (

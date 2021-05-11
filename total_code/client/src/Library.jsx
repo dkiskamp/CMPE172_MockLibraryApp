@@ -18,6 +18,7 @@ export default class Library extends React.Component {
     }  
 
       handleSubmit = e => {
+        alert("Book Borrowed");
       //e.preventDefault();
       console.log("send");
         this.setState({
@@ -26,15 +27,15 @@ export default class Library extends React.Component {
       //send objects or arrays not values
 
       axios
-        .post('/borrow', {bookISBN: e})
-        .then(() => console.log('sent data'))
+        .post('http://localhost:3001/borrow', {bookISBN: e})
+        .then(res => alert('Book Borrowed'))
         .catch(err => {
           console.error(err);
         });
     };
 
       getUser() {
-        axios.get('/user')
+        axios.get('http://localhost:3001/user')
             .then(response => {this.setState({
               firstname: response.data.firstname,
               username: response.data.username,
@@ -47,7 +48,7 @@ export default class Library extends React.Component {
     
       getBook() {
         console.log("fetching now");
-        axios.get('/library')
+        axios.get('http://localhost:3001/library')
             .then(response => {
               this.setState({
                 books: response.data.books,

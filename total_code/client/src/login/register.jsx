@@ -35,8 +35,11 @@ export class Register extends React.Component {
     console.log(user);
     
     axios
-      .post('/register', user)
-      .then(() => console.log('User Created'))
+      .post('http://localhost:3001/register', user)
+      .then(res => {
+        console.log(res.data);
+        window.location.replace('/library');
+      })
       .catch(err => {
         console.error(err);
       });
